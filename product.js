@@ -148,7 +148,17 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
+// Search functionality
+    searchInput.addEventListener("input", function() {
 
+        const query = searchInput.value.toLowerCase();
+        console.log(query);
+        fetch(`https://dummyjson.com/products/search?q=${query}`)
+            .then(response => response.json())
+            .then(data => displayProducts(data.products));
+
+            
+    });
 
     categoryFilter.addEventListener("change", function() {
         const category = categoryFilter.value;

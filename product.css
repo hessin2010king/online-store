@@ -17,7 +17,13 @@ nav {
   justify-content: center;
   gap: 10px;
 }
-
+#search, #categoryFilter{
+  padding: 15px;
+  border-radius: 10px;
+  border: 2px solid #2c974b;
+  background-color: #ffffff70;
+  color: #000;
+}
 main {
   padding: 20px;
   display: flex;
