@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Catalog</title>
+    <link rel="stylesheet" href="product.css">
+</head>
+<body>
+    <header>
+        <h1>Product Catalog</h1>
+        <nav>
+            <select id="categoryFilter">
+                <option value="">All Categories</option>
+            </select>
+        </nav>
+        
+    </header>
+    <main>
+        <section id="productList"></section>
+        <div id="pagination">
+            <button id="prevBtn">Previous</button>
+            <span id="pageInfo"></span>
+            <button id="nextBtn">Next</button>
+        </div>
+    </main>
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="productDetails">
+            </div>
+        </div>
+    </div>
+    <script src="product.js"></script>
+</body>
+</html>
