@@ -10,7 +10,6 @@ function showData() {
   retrievedCart.forEach((item) => {
     shopCard.innerHTML += `
               <div style="border:1px solid #000; border-radius: 10px; margin-bottom:20px;">
-              
                   <img width="100px" src="${item.images[0]}" />
                   <span >${item.title}</span>
                   <br/>
@@ -21,4 +20,3 @@ function showData() {
   });
 }
 showData();
-

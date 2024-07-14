@@ -21,6 +21,12 @@
         <a href="profile.html"><button class="inputsstyle ">profile</button></a>
       </div>
       <nav>
+        <div class="cart-in-nav">
+          <span class="btn-cart">
+            Cart <i class="fa-solid fa-cart-shopping"></i>
+          </span>
+          <span class="number-items-cart">0</span>
+        </div>
         <input type="text" id="search" placeholder="Search for products..." />
         <select id="categoryFilter" class="inputsstyle">
           <option value="">All Categories</option>
@@ -31,29 +37,34 @@
           <option value="3">3 stars & above</option>
           <option value="2">2 stars & above</option>
           <option value="1">1 star & above</option>
+<<<<<<< HEAD
           </select>
           <select id="priceFilter" class="inputsstyle">
+=======
+        </select>
+        <select id="priceFilter">
+>>>>>>> 50fe48e (change js to  modules and add delete and add increment & decriment)
           <option value="">Filter by Price</option>
           <option value="10">Less than $10</option>
           <option value="20">Less than $20</option>
           <option value="50">Less than $50</option>
           <!-- Add more options as needed -->
+<<<<<<< HEAD
           </select>
           <select id="discountFilter" class="inputsstyle">
+=======
+        </select>
+        <select id="discountFilter">
+>>>>>>> 50fe48e (change js to  modules and add delete and add increment & decriment)
           <option value="">Filter by Discount</option>
           <option value="10">More than 10% off</option>
           <option value="20">More than 20% off</option>
           <option value="30">More than 30% off</option>
           <!-- Add more options as needed -->
-          </select>
-        <div class="cart-in-nav">
-          <span class="btn-cart">
-            Cart <i class="fa-solid fa-cart-shopping"></i>
-          </span>
-          <span class="number-items-cart">0</span>
-        </div>
+        </select>
       </nav>
     </header>
+
     <main>
       <section id="productList" class="inputsstyle"></section>
       <div id="pagination">

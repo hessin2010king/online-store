@@ -1,7 +1,7 @@
-import { closeAleart, openAleart, showItems } from "./script-shopping-cart.js";
+import { closeAleart, openAleart } from "./aleartAndNatifcations.js";
 const productId = localStorage.getItem("productId");
 const productDetails = document.getElementById("productDetails");
-// const cartUpdatedEvent = new Event("cartUpdated");
+
 if (productId) {
   fetch(`https://dummyjson.com/products/${productId}`)
     .then((response) => response.json())

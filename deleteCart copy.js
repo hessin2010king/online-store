@@ -1,4 +1,4 @@
-import { showItems } from "./script-shopping-cart.js";
+import showItems from "./showItems.js";
 
 export let shopCard = document.querySelector(".shop-card");
 shopCard.addEventListener("click", (e) => {

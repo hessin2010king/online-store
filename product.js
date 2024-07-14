@@ -1,3 +1,9 @@
+import addToCart from "./addToCart.js";
+import clearShoppingCart from "./clearShoppingCart.js";
+import showItems from "./showItems.js";
+import dispatchActions from "./dispatchActions.js";
+import { closeAleart, openAleart } from "./aleartAndNatifcations.js";
+
 const productList = document.getElementById("productList");
 const categoryFilter = document.getElementById("categoryFilter");
 const searchInput = document.getElementById("search");
@@ -13,50 +19,45 @@ const ratingFilter = document.getElementById("ratingFilter");
 const priceFilter = document.getElementById("priceFilter");
 const discountFilter = document.getElementById("discountFilter");
 
-
 export let shoppingCart =
   JSON.parse(localStorage.getItem("shoppingCart")) || [];
 let legnthCart = shoppingCart.length;
 localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
-
-function clearShoppingCart() {
-  localStorage.removeItem("shoppingCart");
-  shoppingCart = [];
-  legnthCart = shoppingCart.length;
-  numberItemsCart.innerHTML = legnthCart;
-  showItems(shoppingCart);
-}
 
 btnClear.addEventListener("click", () => {
   clearShoppingCart();
   console.log("Shopping cart cleared");
 });
 
-let currentCategory = '';
-let currentRating = '';
-let currentPrice = '';
-let currentDiscount = '';
+let currentCategory = "";
+let currentRating = "";
+let currentPrice = "";
+let currentDiscount = "";
 let currentPage = 0;
 const limit = 9;
 
 function fetchProducts(skip = 0, limit = 9) {
   let url = `https://dummyjson.com/products?limit=${limit}&skip=${skip}`;
-        if (currentCategory) {
-            url += `&category=${currentCategory}`;
-        }
-    fetch(url)
+  if (currentCategory) {
+    url += `&category=${currentCategory}`;
+  }
+  fetch(url)
     .then((response) => response.json())
-    .then((data) => { 
+    .then((data) => {
       let products = data.products;
       // Apply filters
       if (currentRating) {
-          products = products.filter(product => product.rating >= currentRating);
+        products = products.filter(
+          (product) => product.rating >= currentRating
+        );
       }
       if (currentPrice) {
-          products = products.filter(product => product.price <= currentPrice);
+        products = products.filter((product) => product.price <= currentPrice);
       }
       if (currentDiscount) {
-          products = products.filter(product => product.discountPercentage >= currentDiscount);
+        products = products.filter(
+          (product) => product.discountPercentage >= currentDiscount
+        );
       }
       displayProducts(products);
       updatePageInfo(skip, limit, data.total);
@@ -96,12 +97,12 @@ function displayProducts(products) {
 // product category filter
 function populateCategories(products) {
   categoryFilter.innerHTML = '<option value="">All Categories</option>';
-  const categories = [...new Set(products.map(product => product.category))];
-  categories.forEach(category => {
-      const option = document.createElement("option");
-      option.value = category;
-      option.textContent = category;
-      categoryFilter.appendChild(option);
+  const categories = [...new Set(products.map((product) => product.category))];
+  categories.forEach((category) => {
+    const option = document.createElement("option");
+    option.value = category;
+    option.textContent = category;
+    categoryFilter.appendChild(option);
   });
 }
 
@@ -204,17 +205,17 @@ categoryFilter.addEventListener("change", function () {
     });
 });
 
-ratingFilter.addEventListener("change", function() {
+ratingFilter.addEventListener("change", function () {
   currentRating = ratingFilter.value;
   fetchProducts(0, limit);
 });
 
-priceFilter.addEventListener("change", function() {
+priceFilter.addEventListener("change", function () {
   currentPrice = priceFilter.value;
   fetchProducts(0, limit);
 });
 
-discountFilter.addEventListener("change", function() {
+discountFilter.addEventListener("change", function () {
   currentDiscount = discountFilter.value;
   fetchProducts(0, limit);
 });
@@ -231,33 +232,6 @@ nextBtn.addEventListener("click", function () {
   fetchProducts(currentPage * limit, limit);
 });
 
-export function addToCart(e, product, callback) {
-  const btnToCart = e.target.closest(".btn-to-cart");
-  if (btnToCart) {
-    notificationDvi("Add to shopping cart", "green");
-    if (!product) {
-      console.error("Product not found.");
-      return;
-    }
-
-    let existingItem = shoppingCart.find((item) => item.id === product.id);
-    if (!existingItem) {
-      product.quantity = 1;
-      shoppingCart.push(product);
-    } else {
-      existingItem.quantity++;
-    }
-
-    legnthCart = shoppingCart.length;
-    numberItemsCart.innerHTML = legnthCart;
-    localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
-    // restoreShoppingCart(shoppingCart);
-    document.dispatchEvent(cartUpdatedEvent);
-  } else {
-    callback(product);
-  }
-}
-
 export var cartUpdatedEvent = new Event("cartUpdated");
 
 document.addEventListener("cartUpdated", () => {
@@ -267,11 +241,4 @@ document.addEventListener("cartUpdated", () => {
   console.log("Shopping cart updated");
 });
 
-
 fetchProducts();
-import {
-  notificationDvi,
-  showItems,
-  closeAleart,
-  openAleart,
-} from "./script-shopping-cart.js";
