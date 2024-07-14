@@ -1,6 +1,6 @@
 // DOM elements retrieval
 let btnCart = document.querySelector(".btn-cart");
-let shopCard = document.querySelector(".shop-card");
+export let shopCard = document.querySelector(".shop-card");
 let btnToCart = document.querySelector(".btn-to-cart");
 let notifcations = document.querySelector(".notifcations");
 const aleart = document.querySelector(".aleart");
@@ -68,6 +68,7 @@ export function notificationDvi(text, background) {
 }
 
 // Function to expand a div element
+
 export function expandDiv(background) {
   let myDiv = document.createElement("div");
   myDiv.classList.add("mydiv");
@@ -88,7 +89,6 @@ export function expandDiv(background) {
 // Function to display items in the shopping cart
 export function showItems(shoppingCart) {
   let totalPrice = 0;
-
   legnthCart = shoppingCart.length;
   numberItemsCart.innerHTML = legnthCart;
   shopCard.innerHTML = "";
