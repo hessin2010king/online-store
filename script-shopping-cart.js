@@ -102,7 +102,7 @@ export function showItems(shoppingCart) {
         <img width="100px" src="${item.images[0]}" />
         <span>${item.title}</span>
         <br/>
-        <input type="number" value="${item.quantity}"/>
+        <input type="number"  value="${item.quantity}" class="input-q"/>
         <span>Price: $${item.price}</span>
         <span>Total: $${itemTotalPrice.toFixed(2)}</span>
         <button class='Delete-item  ${(itemId =
@@ -110,6 +110,12 @@ export function showItems(shoppingCart) {
       </div>
     `;
   });
+
+  // var inputQ = document.querySelector(".input-q");
+  // inputQ.addEventListener("change", (e) => {
+  //   console.log(e.target);
+  //   console.log(e.target.value);
+  // });
 
   document.querySelector(
     "#totalPrice"

@@ -3,7 +3,6 @@ import {
   showItems,
   closeAleart,
   openAleart,
-  restoreShoppingCart,
 } from "./script-shopping-cart.js";
 
 // initlazation Dom  Elements
@@ -51,7 +50,9 @@ function fetchProducts(skip = 0, limit = 9) {
       showItems(shoppingCart);
     })
     .catch((error) => {
-      console.error("Error fetching products:", error);
+      closeAleart(error),
+        openAleart(error),
+        console.error("Error fetching products:", error);
     });
 }
 
