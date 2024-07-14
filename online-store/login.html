@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sign up or login into our E-commerce Website">
+    <title>Sign Up!</title>
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.png">
+    <link rel="stylesheet" href="login-style.css">
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/c1af77ae4d.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="form-box">
+            <h1 id="title">Sign Up</h1>
+            <form id="authForm">
+                <div class="input-group">
+                    <div class="input-field" id="nameField">
+                        <i class="fa-solid fa-signature"></i>
+                        <input type="text" placeholder="Name" id="nameInput">
+                    </div>
+
+                    <div class="input-field" id="age">
+                        <i class="fa-solid fa-calendar-days"></i>
+                        <input type="number" placeholder="Your Age" id="ageInput">
+                    </div>
+
+                    <div class="input-field">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" placeholder="Username" id="usernameInput">
+                    </div>
+
+                    <div class="input-field">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" placeholder="Password" id="passwordInput">
+                    </div>
+                    <br>
+                </div>
+                <div class="btn-field">
+                    <button type="button" id="signupBtn">Sign Up</button>
+                    <button type="button" id="signinBtn" class="disable">Sign In</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- start footer -->
+
+    
+    <script>
+        let signupBtn = document.getElementById("signupBtn");
+        let signinBtn = document.getElementById("signinBtn");
+        let nameField = document.getElementById("nameField");
+        let title = document.getElementById("title");
+        let ageField = document.getElementById("age");
+
+        signinBtn.onclick = function () {
+            nameField.style.maxHeight = "0";
+            ageField.style.maxHeight = "0";
+            title.innerHTML = "Sign In";
+            signupBtn.classList.add("disable");
+            signinBtn.classList.remove("disable");
+
+            let loginUsername = document.getElementById("usernameInput").value;
+            let loginPassword = document.getElementById("passwordInput").value;
+
+            if (loginUsername != "" && loginPassword != "") {
+                // Local Storage Authentication
+                let user = JSON.parse(localStorage.getItem(loginUsername));
+                if (user && user.password === loginPassword) {
+                    localStorage.setItem('currentUser', loginUsername);
+                    window.location.href = 'profile.html';
+                } else {
+                    // API Authentication
+                    fetch('https://dummyjson.com/auth/login', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            username: loginUsername,
+                            password: loginPassword,
+                            expiresInMins: 30, // optional, defaults to 60
+                        })
+                    })
+                        .then(res => res.json())
+                        .then((data) => {
+                            if (data.message) {
+                                alert(data.message);
+                            } else if (data.token) {
+                                localStorage.setItem('loginToken', data.token);
+                                localStorage.setItem('currentUser', loginUsername);
+                                window.location.href = 'profile.html';
+                            } else {
+                                alert("Invalid username or password");
+                            }
+                        });
+                }
+            }
+        };
+
+        signupBtn.onclick = function () {
+            nameField.style.maxHeight = "60px";
+            ageField.style.maxHeight = "60px";
+            title.innerHTML = "Sign Up";
+            signupBtn.classList.remove("disable");
+            signinBtn.classList.add("disable");
+
+            let name = document.getElementById("nameInput").value;
+            let age = document.getElementById("ageInput").value;
+            let username = document.getElementById("usernameInput").value;
+            let password = document.getElementById("passwordInput").value;
+
+            console.log("Signup clicked");
+            console.log("Name:", name);
+            console.log("Age:", age);
+            console.log("Username:", username);
+            console.log("Password:", password);
+
+            if (username && password) {
+                let user = {
+                    name: name,
+                    age: age,
+                    username: username,
+                    password: password
+                };
+                console.log("User object:", user);
+                localStorage.setItem(username, JSON.stringify(user));
+                alert("Signup successful! You can now sign in.");
+            } else {
+                alert("Please fill in all fields.");
+            }
+        };
+    </script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>
