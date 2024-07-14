@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Profile</title>
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.png">
+    <link rel="stylesheet" href="css/profile-style.css">
+    <link rel="stylesheet" href="css/style.css" />
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/c1af77ae4d.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="leftbox">
+            <nav>
+                <a onclick="tabs(0)" class="tab active">
+                    <i class="fa-regular fa-user"></i>
+                </a>
+                <!-- <a onclick="tabs(1)" class="tab">
+                    <i class="fa-solid fa-location-dot"></i>
+                </a> -->
+            </nav>
+        </div>
+        <div class="rightbox">
+            <div class="profile tabShow">
+                <h1>Profile Info</h1>
+
+                <h2>Full Name</h2>
+
+                <input type="text" class="profileInput" id="fullName">
+                <h2>Birthday</h2>
+                <input type="text" class="profileInput" id="birthDate">
+                <h2>Gender</h2>
+                <input type="text" class="profileInput" id="gender">
+                <h2>Email</h2>
+                <input type="text" class="profileInput" id="email">
+                <div>
+                    <button class="btn" onclick="logOut();">Logout</button>
+                    <a href="product.html" id="ashop"> 
+                        <button class="btn" id="btnshop" >Go to Store</button> 
+                    </a>
+                </div>
+            </div>
+            <!-- <div class="Addresse tabShow">
+                <h1>Addresse Info</h1>
+                <h2>Addresse Deatils</h2>
+                <input type="text" class="profileInput" id="address">
+                <h2>city</h2>
+                <input type="text" class="profileInput" id="city">
+                <h2>state</h2>
+                <input type="text" class="profileInput" id="state">
+                <h2>Postal Code</h2>
+                <input type="text" class="profileInput" id="postalCode">
+                <button class="btn" onclick="logOut();">Logout</button>
+            </div> -->
+
+        </div>
+    </div>
+    
+    <script>
+        const tabBtn = document.querySelectorAll(".tab")
+        const tab = document.querySelectorAll(".tabShow")
+        function tabs(panelIndex) {
+            tab.forEach(function (node) {
+                node.style.display = "none";
+            })
+            tab[panelIndex].style.display = "block";
+        }
+        tabs(0)
+        document.querySelectorAll(".tab").forEach(function (tab) {
+            tab.addEventListener("click", function () {
+                // Remove 'active' class from all siblings
+                var siblings = this.parentNode.children;
+                for (var i = 0; i < siblings.length; i++) {
+                    siblings[i].classList.remove("active");
+                }
+                // Add 'active' class to the clicked tab
+                this.classList.add("active");
+            });
+        });
+
+        window.onload = function () {
+            //Check for correct token 
+            var loginToken = localStorage.getItem('loginToken');
+            var currentUser = localStorage.getItem('currentUser');
+            if (loginToken && currentUser) {
+                /* providing token in bearer */
+                fetch('https://dummyjson.com/auth/me', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'Bearer ' + loginToken,
+                    },
+                })
+                    .then(res => res.json())
+                    .then((data) => {
+                        if (data.message) {
+                            alert('Re-Sign in Please');
+                            window.location.href = "/login.html";
+                        } else {
+                            // let user = JSON.parse(localStorage.getItem(currentUser));
+                            // if (user) {
+                            document.getElementById("fullName").value = data.firstName || "";
+                            document.getElementById("birthDate").value = data.birthDate || "";
+
+                            document.getElementById("gender").value = data.gender || "";
+                            document.getElementById("email").value = data.email || "";
+                            if (data.address) {
+                                document.getElementById("address").value = data.address.address || "";
+                                document.getElementById("city").value = data.address.city || "";
+                                document.getElementById("state").value = data.address.state || "";
+                                document.getElementById("postalCode").value = data.address.postalCode || "";
+                            }
+                        }
+                    });
+            } else if (currentUser) {
+                let user = JSON.parse(localStorage.getItem(currentUser));
+                if (user) {
+                    document.getElementById("fullName").value = user.name || "";
+                    document.getElementById("birthDate").value = user.age || "Not provided";
+                    document.getElementById("gender").value = "Not provided";
+                    document.getElementById("email").value = "Not provided";
+                    document.getElementById("address").value = "Not provided";
+                    document.getElementById("city").value = "Not provided";
+                    document.getElementById("state").value = "Not provided";
+                    document.getElementById("postalCode").value = "Not provided";
+                }
+            } else {
+                window.location.href = "/login.html";
+            }
+        };
+
+        function logOut() {
+            localStorage.removeItem("loginToken");
+            localStorage.removeItem("currentUser");
+            window.location.href = "/login.html";
+        }
+    </script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>
