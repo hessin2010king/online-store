@@ -1,18 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Product Details</title>
-    <link rel="stylesheet" href="productdetails.css">
-</head>
-<body>
+    <link rel="stylesheet" href="product.css" />
+    <link rel="stylesheet" href="style-shopping-cart.css" />
+    <link rel="stylesheet" href="productdetails.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer" />
+  </head>
+  <body>
     <header>
-        <h1>Product Details</h1>
+      <h1>Product Details</h1>
+
+      <div class="cart-in-nav">
+        <span class="btn-cart">
+          Cart <i class="fa-solid fa-cart-shopping"></i>
+        </span>
+        <span class="number-items-cart">0</span>
+      </div>
     </header>
     <main>
-        <section id="productDetails"></section>
+      <section id="productDetails"></section>
     </main>
-    <script src="productdetails.js"></script>
-</body>
+
+    <div class="aleart" title="click to exit">
+      <div class="parent-content-aleart">
+        <div class="content"></div>
+        <span class="close-pupap">&#215; </span>
+      </div>
+    </div>
+
+    <!-- contianer shopping cart  -->
+
+    <section class="parent-section-shop">
+      <div class="shop-card"></div>
+    </section>
+
+    <!-- contianer of notifcations-->
+    <div class="notifcations"></div>
+
+    <script type="module" src="product.js"></script>
+    <script type="module" src="productdetails.js"></script>
+    <script type="module" src="script-shopping-cart.js"></script>
+    <script type="module" src="cartOndingle.js"></script>
+  </body>
 </html>

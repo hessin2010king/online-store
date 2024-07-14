@@ -1,18 +1,20 @@
-document.addEventListener("DOMContentLoaded", function() {
-    // Get the product ID from localStorage
-    const productId = localStorage.getItem('productId');
-    const productDetails = document.getElementById("productDetails");
-
-    if (productId) {
-        // Fetch product details from the API
-        fetch(`https://dummyjson.com/products/${productId}`)
-            .then(response => response.json())
-            .then(product => {
-                // Display product details
-                productDetails.innerHTML = `
+import { closeAleart, openAleart, showItems } from "./script-shopping-cart.js";
+const productId = localStorage.getItem("productId");
+const productDetails = document.getElementById("productDetails");
+// const cartUpdatedEvent = new Event("cartUpdated");
+if (productId) {
+  fetch(`https://dummyjson.com/products/${productId}`)
+    .then((response) => response.json())
+    .then((product) => {
+      productDetails.innerHTML = `
                 <div class="slider">
                     <div class="slides">
-                        ${product.images.map(image => `<img src="${image}" alt="${product.title}">`).join('')}
+                        ${product.images
+                          .map(
+                            (image) =>
+                              `<img src="${image}" alt="${product.title}">`
+                          )
+                          .join("")}
                     </div>
                     <a class="prev">&#10094;</a>
                     <a class="next">&#10095;</a>
@@ -23,7 +25,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 <p>Rating: ${product.rating}</p>
                 <h3>Reviews</h3>
                 <div class="reviews-container">
-                    ${product.reviews.map(review => `
+                    ${product.reviews.map(
+                      (review) => `
                     <div class="review-card">
                         <div class="review-header">
                             <span class="reviewer-name">${review.reviewerName}</span>
@@ -35,40 +38,44 @@ document.addEventListener("DOMContentLoaded", function() {
                         </div>
                         </div>
                     </div>
-                    `)}
+                    `
+                    )}
                 </div>
     
                 `;
-                
-                initSlider();
-            });
-    } else {
-        // Handle case where no product ID is found
-        productDetails.innerHTML = "<p>No product details available.</p>";
-    }
 
-    // Function to initialize the image slider
-    function initSlider() {
-        let slideIndex = 0;
-        const slides = document.querySelector('.slides');
-        const images = document.querySelectorAll('.slides img');
-        const prev = document.querySelector('.prev');
-        const next = document.querySelector('.next');
+      initSlider();
+    })
+    .catch((error) => {
+      closeAleart(error);
+      openAleart(error);
+    });
+} else {
+  // Handle case where no product ID is found
+  productDetails.innerHTML = "<p>No product details available.</p>";
+}
 
-        function showSlide(index) {
-            if (index >= images.length) slideIndex = 0;
-            if (index < 0) slideIndex = images.length - 1;
-            slides.style.transform = `translateX(${-slideIndex * 100}%)`;
-        }
+// Function to initialize the image slider
+function initSlider() {
+  let slideIndex = 0;
+  const slides = document.querySelector(".slides");
+  const images = document.querySelectorAll(".slides img");
+  const prev = document.querySelector(".prev");
+  const next = document.querySelector(".next");
 
-        prev.addEventListener('click', () => {
-            showSlide(--slideIndex);
-        });
+  function showSlide(index) {
+    if (index >= images.length) slideIndex = 0;
+    if (index < 0) slideIndex = images.length - 1;
+    slides.style.transform = `translateX(${-slideIndex * 100}%)`;
+  }
 
-        next.addEventListener('click', () => {
-            showSlide(++slideIndex);
-        });
+  prev.addEventListener("click", () => {
+    showSlide(--slideIndex);
+  });
 
-        showSlide(slideIndex);
-    }
-});
+  next.addEventListener("click", () => {
+    showSlide(++slideIndex);
+  });
+
+  showSlide(slideIndex);
+}
