@@ -1,12 +1,3 @@
-import {
-  notificationDvi,
-  showItems,
-  closeAleart,
-  openAleart,
-} from "./script-shopping-cart.js";
-
-// initlazation Dom  Elements
-
 const productList = document.getElementById("productList");
 const categoryFilter = document.getElementById("categoryFilter");
 const searchInput = document.getElementById("search");
@@ -18,6 +9,10 @@ const nextBtn = document.getElementById("nextBtn");
 const pageInfo = document.getElementById("pageInfo");
 const numberItemsCart = document.querySelector(".number-items-cart");
 const btnClear = document.querySelector(".btn-clear");
+const ratingFilter = document.getElementById("ratingFilter");
+const priceFilter = document.getElementById("priceFilter");
+const discountFilter = document.getElementById("discountFilter");
+
 
 export let shoppingCart =
   JSON.parse(localStorage.getItem("shoppingCart")) || [];
@@ -37,16 +32,36 @@ btnClear.addEventListener("click", () => {
   console.log("Shopping cart cleared");
 });
 
+let currentCategory = '';
+let currentRating = '';
+let currentPrice = '';
+let currentDiscount = '';
 let currentPage = 0;
 const limit = 9;
 
 function fetchProducts(skip = 0, limit = 9) {
-  fetch(`https://dummyjson.com/products?limit=${limit}&skip=${skip}`)
+  let url = `https://dummyjson.com/products?limit=${limit}&skip=${skip}`;
+        if (currentCategory) {
+            url += `&category=${currentCategory}`;
+        }
+    fetch(url)
     .then((response) => response.json())
-    .then((data) => {
-      displayProducts(data.products);
+    .then((data) => { 
+      let products = data.products;
+      // Apply filters
+      if (currentRating) {
+          products = products.filter(product => product.rating >= currentRating);
+      }
+      if (currentPrice) {
+          products = products.filter(product => product.price <= currentPrice);
+      }
+      if (currentDiscount) {
+          products = products.filter(product => product.discountPercentage >= currentDiscount);
+      }
+      displayProducts(products);
       updatePageInfo(skip, limit, data.total);
-      // populateCategories(data.products);
+      populateCategories(products);
+      // populateCategories(products);
       showItems(shoppingCart);
     })
     .catch((error) => {
@@ -64,6 +79,8 @@ function displayProducts(products) {
     productDiv.innerHTML = `
       <img src="${product.thumbnail}" alt="${product.title}">
       <h2>${product.title}</h2>
+      <p class="discount">${product.discountPercentage}% Discount</p>
+
       <div class='parent-content'>
         <p>$${product.price}</p>
         <button class='btn-to-cart'> Add To Cart </button>
@@ -74,6 +91,17 @@ function displayProducts(products) {
     });
 
     productList.appendChild(productDiv);
+  });
+}
+// product category filter
+function populateCategories(products) {
+  categoryFilter.innerHTML = '<option value="">All Categories</option>';
+  const categories = [...new Set(products.map(product => product.category))];
+  categories.forEach(category => {
+      const option = document.createElement("option");
+      option.value = category;
+      option.textContent = category;
+      categoryFilter.appendChild(option);
   });
 }
 
@@ -92,11 +120,14 @@ function showProductDetails(product) {
     <p>${product.description}</p>
     <p>$${product.price}</p>
     <p>Rating: ${product.rating}</p>
+    <p class="discount">${product.discountPercentage}% Discount</p>
+
     <a href="productdetails.html">
       <button id="show">More details</button>
     </a>
     <button class='btn-to-cart' id="addCartFD"> Add To Cart </button>
   `;
+
   productModal.style.display = "block";
   localStorage.setItem("productId", JSON.stringify(product.id));
   initSlider();
@@ -173,6 +204,21 @@ categoryFilter.addEventListener("change", function () {
     });
 });
 
+ratingFilter.addEventListener("change", function() {
+  currentRating = ratingFilter.value;
+  fetchProducts(0, limit);
+});
+
+priceFilter.addEventListener("change", function() {
+  currentPrice = priceFilter.value;
+  fetchProducts(0, limit);
+});
+
+discountFilter.addEventListener("change", function() {
+  currentDiscount = discountFilter.value;
+  fetchProducts(0, limit);
+});
+
 prevBtn.addEventListener("click", function () {
   if (currentPage > 0) {
     currentPage--;
@@ -221,4 +267,11 @@ document.addEventListener("cartUpdated", () => {
   console.log("Shopping cart updated");
 });
 
+
 fetchProducts();
+import {
+  notificationDvi,
+  showItems,
+  closeAleart,
+  openAleart,
+} from "./script-shopping-cart.js";

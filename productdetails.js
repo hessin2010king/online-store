@@ -23,6 +23,8 @@ if (productId) {
                 <p>${product.description}</p>
                 <p>$${product.price}</p>
                 <p>Rating: ${product.rating}</p>
+                <p class="discount">${product.discountPercentage}% Discount</p>
+
                 <h3>Reviews</h3>
                 <div class="reviews-container">
                     ${product.reviews.map(
