@@ -16,27 +16,30 @@
   </head>
   <body>
     <header>
-      <h1>The Product Catalog</h1>
+      <div id="headstyle">
+        <h1>The Product Catalog</h1>
+        <a href="profile.html"><button class="inputsstyle ">profile</button></a>
+      </div>
       <nav>
         <input type="text" id="search" placeholder="Search for products..." />
-        <select id="categoryFilter">
+        <select id="categoryFilter" class="inputsstyle">
           <option value="">All Categories</option>
         </select>
-        <select id="ratingFilter">
+        <select id="ratingFilter" class="inputsstyle">
           <option value="">Filter by Rating</option>
           <option value="4">4 stars & above</option>
           <option value="3">3 stars & above</option>
           <option value="2">2 stars & above</option>
           <option value="1">1 star & above</option>
           </select>
-          <select id="priceFilter">
+          <select id="priceFilter" class="inputsstyle">
           <option value="">Filter by Price</option>
           <option value="10">Less than $10</option>
           <option value="20">Less than $20</option>
           <option value="50">Less than $50</option>
           <!-- Add more options as needed -->
           </select>
-          <select id="discountFilter">
+          <select id="discountFilter" class="inputsstyle">
           <option value="">Filter by Discount</option>
           <option value="10">More than 10% off</option>
           <option value="20">More than 20% off</option>
@@ -52,7 +55,7 @@
       </nav>
     </header>
     <main>
-      <section id="productList"></section>
+      <section id="productList" class="inputsstyle"></section>
       <div id="pagination">
         <button id="prevBtn">Previous</button>
         <span id="pageInfo"></span>
@@ -87,6 +90,9 @@
         <div class="shop-card"></div>
       </div>
     </section>
+    <footer>
+      <p>© 2024 My E-commerce. All rights reserved.</p>
+  </footer>
 
     <!-- contianer of notifcations-->
     <div class="notifcations"></div>
