@@ -1,6 +1,7 @@
 import showItems from "./addToCart.js";
 import { shoppingCart } from "./product.js";
 const dispatchActions = () => {
+  let legnthCart = shoppingCart.length;
   var cartUpdatedEvent = new Event("cartUpdated");
   let numberItemsCart = document.querySelector(".number-items-cart");
 
