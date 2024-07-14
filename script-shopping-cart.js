@@ -118,32 +118,6 @@ export function showItems(shoppingCart) {
   localStorage.setItem("shoppingCart", JSON.stringify(shoppingCart));
 }
 
-// function removeFromCart(itemId) {
-//   // Filter out the item with matching itemId
-//   console.log(itemId);
-
-//   const updatedCart = retrievedCart.filter((item) => {
-//     item.id !== itemId;
-//     console.log(+item.id !== +itemId);
-//   });
-
-//   console.log(updatedCart);
-//   retrievedCart = updatedCart;
-
-//   console.log(showItems(retrievedCart));
-//   showItems(retrievedCart);
-
-//   localStorage.setItem("shoppingCart", JSON.stringify(retrievedCart));
-//   console.log(retrievedCart)
-//   // Optionally, update localStorage with the updated cart
-// }
-// shopCard.addEventListener("click", (e) => {
-//   const itemId = e.target.classList[1];
-//   console.log(e.target.classList[1]);
-//   // console.log(itemId);
-//   removeFromCart(itemId);
-//   // console.log("first");
-// });
 // Function to close the alert
 export function closeAleart(error) {
   aleart.addEventListener("click", (e) => {
