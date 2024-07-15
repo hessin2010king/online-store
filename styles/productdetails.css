@@ -118,3 +118,14 @@ main {
 .review-rating i {
   margin-right: 0.2rem;
 }
+.discount {
+  position: relative;
+  text-align: center;
+  background-color: #ff4757;
+  color: white;
+  padding: 5px 10px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}

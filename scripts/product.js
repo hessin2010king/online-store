@@ -35,34 +35,17 @@ let currentPrice = "";
 let currentDiscount = "";
 let currentPage = 0;
 const limit = 9;
+let allProducts = [];
 
-function fetchProducts(skip = 0, limit = 9) {
-  let url = `https://dummyjson.com/products?limit=${limit}&skip=${skip}`;
-  if (currentCategory) {
-    url += `&category=${currentCategory}`;
-  }
+function fetchProducts() {
+  let url = `https://dummyjson.com/products?limit=100`; // Fetch a large number of products initially
   fetch(url)
     .then((response) => response.json())
     .then((data) => {
-      let products = data.products;
-      // Apply filters
-      if (currentRating) {
-        products = products.filter(
-          (product) => product.rating >= currentRating
-        );
-      }
-      if (currentPrice) {
-        products = products.filter((product) => product.price <= currentPrice);
-      }
-      if (currentDiscount) {
-        products = products.filter(
-          (product) => product.discountPercentage >= currentDiscount
-        );
-      }
-      displayProducts(products);
-      updatePageInfo(skip, limit, data.total);
-      populateCategories(products);
-      // populateCategories(products);
+      allProducts = data.products;
+      displayProducts(allProducts.slice(0, limit));
+      updatePageInfo(0, limit, allProducts.length);
+      populateCategories(allProducts);
       showItems(shoppingCart);
     })
     .catch((error) => {
@@ -70,6 +53,26 @@ function fetchProducts(skip = 0, limit = 9) {
         openAleart(error),
         console.error("Error fetching products:", error);
     });
+}
+
+function applyFilters(products) {
+  if (currentCategory) {
+    products = products.filter(
+      (product) => product.category === currentCategory
+    );
+  }
+  if (currentRating) {
+    products = products.filter((product) => product.rating >= currentRating);
+  }
+  if (currentPrice) {
+    products = products.filter((product) => product.price <= currentPrice);
+  }
+  if (currentDiscount) {
+    products = products.filter(
+      (product) => product.discountPercentage >= currentDiscount
+    );
+  }
+  return products;
 }
 
 function displayProducts(products) {
@@ -94,7 +97,7 @@ function displayProducts(products) {
     productList.appendChild(productDiv);
   });
 }
-// product category filter
+
 function populateCategories(products) {
   categoryFilter.innerHTML = '<option value="">All Categories</option>';
   const categories = [...new Set(products.map((product) => product.category))];
@@ -185,51 +188,59 @@ searchInput.addEventListener("input", function () {
   const query = searchInput.value.toLowerCase();
   fetch(`https://dummyjson.com/products/search?q=${query}`)
     .then((response) => response.json())
-    .then((data) => displayProducts(data.products))
+    .then((data) => {
+      allProducts = data.products;
+      let filteredProducts = applyFilters(allProducts);
+      displayProducts(filteredProducts.slice(0, limit));
+      updatePageInfo(0, limit, filteredProducts.length);
+    })
     .catch((error) => {
       console.error("Error searching products:", error);
     });
 });
 
 categoryFilter.addEventListener("change", function () {
-  const category = categoryFilter.value;
-  fetch(
-    category
-      ? `https://dummyjson.com/products/category/${category}`
-      : "https://dummyjson.com/products"
-  )
-    .then((response) => response.json())
-    .then((data) => displayProducts(data.products))
-    .catch((error) => {
-      console.error("Error filtering products:", error);
-    });
+  currentCategory = categoryFilter.value;
+  let filteredProducts = applyFilters(allProducts);
+  displayProducts(filteredProducts.slice(0, limit));
+  updatePageInfo(0, limit, filteredProducts.length);
 });
 
 ratingFilter.addEventListener("change", function () {
   currentRating = ratingFilter.value;
-  fetchProducts(0, limit);
+  let filteredProducts = applyFilters(allProducts);
+  displayProducts(filteredProducts.slice(0, limit));
+  updatePageInfo(0, limit, filteredProducts.length);
 });
 
 priceFilter.addEventListener("change", function () {
   currentPrice = priceFilter.value;
-  fetchProducts(0, limit);
+  let filteredProducts = applyFilters(allProducts);
+  displayProducts(filteredProducts.slice(0, limit));
+  updatePageInfo(0, limit, filteredProducts.length);
 });
 
 discountFilter.addEventListener("change", function () {
   currentDiscount = discountFilter.value;
-  fetchProducts(0, limit);
+  let filteredProducts = applyFilters(allProducts);
+  displayProducts(filteredProducts.slice(0, limit));
+  updatePageInfo(0, limit, filteredProducts.length);
 });
 
 prevBtn.addEventListener("click", function () {
   if (currentPage > 0) {
     currentPage--;
-    fetchProducts(currentPage * limit, limit);
+    let filteredProducts = applyFilters(allProducts);
+    displayProducts(filteredProducts.slice(currentPage * limit, (currentPage + 1) * limit));
+    updatePageInfo(currentPage * limit, limit, filteredProducts.length);
   }
 });
 
 nextBtn.addEventListener("click", function () {
   currentPage++;
-  fetchProducts(currentPage * limit, limit);
+  let filteredProducts = applyFilters(allProducts);
+  displayProducts(filteredProducts.slice(currentPage * limit, (currentPage + 1) * limit));
+  updatePageInfo(currentPage * limit, limit, filteredProducts.length);
 });
 
 export var cartUpdatedEvent = new Event("cartUpdated");

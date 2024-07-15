@@ -10,16 +10,14 @@ header {
   padding: 15px;
   text-align: center;
 }
-#headstyle{
-display: flex;
-flex-direction: row;
-justify-content: space-between;
-align-items: center;
-
+#headstyle {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
-#headstyle a{
-text-decoration: none;
-
+#headstyle a {
+  text-decoration: none;
 }
 nav {
   margin-top: 10px;
@@ -34,19 +32,22 @@ main {
   flex-direction: column;
   align-items: center;
 }
-#search, #categoryFilter{
+#search,
+#categoryFilter,
+#discountFilter,
+#priceFilter {
   padding: 15px;
   border-radius: 10px;
   border: 2px solid #284662;
   background-color: #ffffff70;
   color: #000;
 }
-.inputsstyle{
+.inputsstyle {
   padding: 15px;
   border-radius: 10px;
   border: 2px solid #284662;
   background-color: #ffffff70;
-  color: #000
+  color: #000;
 }
 #productList {
   display: flex;

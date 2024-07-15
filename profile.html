@@ -5,9 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Profile</title>
-    <link rel="icon" type="image/x-icon" href="/assets/favicon.png">
-    <link rel="stylesheet" href="profile-style.css">
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="styles/profile-style.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/c1af77ae4d.js" crossorigin="anonymous"></script>
 </head>
@@ -99,7 +97,7 @@
                     .then((data) => {
                         if (data.message) {
                             alert('Re-Sign in Please');
-                            window.location.href = "/login.html";
+                            window.location.href = "/index.html";
                         } else {
                             // let user = JSON.parse(localStorage.getItem(currentUser));
                             // if (user) {
@@ -129,17 +127,16 @@
                     document.getElementById("postalCode").value = "Not provided";
                 }
             } else {
-                window.location.href = "/login.html";
+                window.location.href = "/index.html";
             }
         };
 
         function logOut() {
             localStorage.removeItem("loginToken");
             localStorage.removeItem("currentUser");
-            window.location.href = "/login.html";
+            window.location.href = "/index.html";
         }
     </script>
-    <script src="js/script.js"></script>
 </body>
 
 </html>
