@@ -97,7 +97,7 @@
                     .then((data) => {
                         if (data.message) {
                             alert('Re-Sign in Please');
-                            window.location.href = "/login.html";
+                            window.location.href = "/index.html";
                         } else {
                             // let user = JSON.parse(localStorage.getItem(currentUser));
                             // if (user) {
@@ -127,14 +127,14 @@
                     document.getElementById("postalCode").value = "Not provided";
                 }
             } else {
-                window.location.href = "/login.html";
+                window.location.href = "/index.html";
             }
         };
 
         function logOut() {
             localStorage.removeItem("loginToken");
             localStorage.removeItem("currentUser");
-            window.location.href = "/login.html";
+            window.location.href = "/index.html";
         }
     </script>
 </body>
