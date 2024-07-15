@@ -1,165 +1,117 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
-*{
+
+ * {
   margin: 0;
   padding: 0;
   font-family: Montserrat;
   box-sizing: border-box;
 }
 
-body {
+.container {
+  width: 100%;
+  height: 100vh;
   background-color: #284662;
-  overflow-x: hidden;
   position: relative;
-  font-family: Arial, Helvetica, sans-serif;
 }
 
-.container {
+.form-box {
+  width: 90%;
+  max-width: 850px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 50px 60px 70px;
+  text-align: center;
   background: #0303032c;
-  width: 840px;
-  height: 400px;
-  margin: auto;
-  position: relative;
-  margin-top: 5%;
-  border: .1rem solid rgba(221, 221, 221, 0.447);
   box-shadow: 2px 5px 40px rgb(6, 6, 6);
+  border: .1rem solid rgba(221, 221, 221, 0.447);
   border-radius: 10px;
   margin-bottom: 60px;
-  min-height: 75vh;
+  min-height: 60vh;
 }
 
-.leftbox {
-  display: none;
-  float: left;
-  top: -5%;
-  left: 5%;
-  position: absolute;
-  width: 15%;
-  height: 100%;
-  background: #284662;
-  box-shadow: 3px 3px 10px rgba(119, 119, 119, 0.5);
-  border: 0.1em solid #fff;
-  border-radius: 10px;
-}
-
-nav a {
-  list-style: none;
-  padding: 35px;
-  color: #5c5c5c;
-  font-size: 1.1em;
-  display: block;
-  transition: all 0.3s ease-in-out;
-}
-
-nav a:hover {
-  color: rgb(8, 8, 8);
-  cursor: pointer;
-  transform: scale(1.2);
-}
-
-nav a:first-child {
-  margin-top: 7px;
-}
-
-nav a.active {
-  color: #fff;
-}
-
-.rightbox {
-  width: 100%;
-  padding: 5px;
-  margin-left: 10%;
-}
-
-.tabShow {
-  transition: all 0.5s ease-in;
-  width: 100%;
-  position: absolute;
-
-}
-
-h1 {
-  font-family: Montserrat;
+.form-box h1 {
+  font-size: 50px;
+  margin-bottom: 60px;
   color: #ffffff;
-  font-size: 2.8rem;
-  margin-top: 40px;
-  margin-bottom: 35px;
-
+  position: relative;
 }
 
-h2 {
-  font-family: Montserrat;
-  color: #cdcccc;
-  text-transform: uppercase;
-  font-size: 14px;
-  letter-spacing: 1px;
-  margin-left: 2px;
-  margin-top: 10px;
+.form-box h1::after {
+  content: "";
+  width: 30px;
+  height: 4px;
+  border-radius: 3px;
+  background: #ffffff;
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-.profileInput,
-p {
-  border: 0;
-  width: 80%;
-  font-family: Montserrat;
-  font-size: 1.3em;
-  padding: 7px 0;
-  color: #070707;
-  outline: none;
-}
-
-.profileInput {
+.input-field {
+  background: #eaeaea;
+  margin: 15px 0;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  max-height: 65px;
+  transition: max-height 0.5s;
+  overflow: hidden;
   border: 0;
   border: .1rem solid rgba(221, 221, 221, 0.447);
-  border-radius: 10PX;
-  width: 80%;
-  font-family: Montserrat;
   font-size: 1.2em;
   padding: 15px ;
   color: #ffffff;
   outline: none;
-  background-color: #eeeeee17;
+  background-color: #eeeeee19;
   margin: 15px 0;
   
 }
 
-span {
-  font-size: 0.7em;
-  color: #777;
+input {
+
+  width: 100%;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  padding: 18px 15px;
+  color: #ffffff;
+  font-size: large;
 }
 
-.btn {
-  width: 160px;
-  height: 46px;
-  font-size: 15px;
-  text-transform: uppercase;
-  color: #fff;
-  background-color: #333;
-  border-radius: 23px;
-  font-weight: 400;
-  display: inline-block;
-  margin-inline: auto;
-  outline: none;
-  border: none;
-  margin-top: 1rem;
-  cursor: pointer;
-  transition: 0.3s all ease;
+.input-field i {
+  margin-left: 15px;
+  color: #00000086;
 }
 
-.btn:hover {
-  background-color: rgb(20, 18, 18);
+form p {
+  text-align: left;
+  font-size: 13px;
+  padding: 10px;
 }
 
-.tabShow {
-  display: none;
-}
-#ashop{
-  display: inline-block;
+form p a {
   text-decoration: none;
+  color: #f1f1f1;
 }
-#btnshop {
+
+.btn-field {
+  width: 100%;
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  margin-right: 60px;
+  justify-content: space-between;
+}
+
+.btn-field button {
+  flex-basis: 48%;
+  background: #222222;
+  color: #eaeaea;
+  height: 60px;
+  border-radius: 20px;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  transition: background 1s;
 }
