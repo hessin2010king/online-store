@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 
 <head>
     <meta charset="UTF-8">
@@ -48,7 +49,7 @@
     </div>
     <!-- start footer -->
 
-    
+
     <script>
         let signupBtn = document.getElementById("signupBtn");
         let signinBtn = document.getElementById("signinBtn");
@@ -66,7 +67,7 @@
             let loginUsername = document.getElementById("usernameInput").value;
             let loginPassword = document.getElementById("passwordInput").value;
 
-            if (loginUsername != "" && loginPassword != "") {
+            if (loginUsername && loginPassword) {
                 // Local Storage Authentication
                 let user = JSON.parse(localStorage.getItem(loginUsername));
                 if (user && user.password === loginPassword) {
@@ -83,7 +84,12 @@
                             expiresInMins: 30, // optional, defaults to 60
                         })
                     })
-                        .then(res => res.json())
+                        .then(res => {
+                            if (!res.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return res.json();
+                        })
                         .then((data) => {
                             if (data.message) {
                                 alert(data.message);
@@ -94,8 +100,14 @@
                             } else {
                                 alert("Invalid username or password");
                             }
+                        })
+                        .catch(error => {
+                            console.error('Error during login:', error);
+                            alert('Error during login. Please try again.');
                         });
                 }
+            } else {
+                alert("Please enter username and password.");
             }
         };
 
@@ -111,12 +123,6 @@
             let username = document.getElementById("usernameInput").value;
             let password = document.getElementById("passwordInput").value;
 
-            console.log("Signup clicked");
-            console.log("Name:", name);
-            console.log("Age:", age);
-            console.log("Username:", username);
-            console.log("Password:", password);
-
             if (username && password) {
                 let user = {
                     name: name,
@@ -124,7 +130,6 @@
                     username: username,
                     password: password
                 };
-                console.log("User object:", user);
                 localStorage.setItem(username, JSON.stringify(user));
                 alert("Signup successful! You can now sign in.");
             } else {

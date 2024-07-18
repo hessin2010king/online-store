@@ -228,3 +228,33 @@ footer {
     width: 300px;
   }
 }
+
+@media (max-width: 1100px) {
+  #productList {
+    gap: 1rem 0;
+  }
+  .product {
+    width: 300px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .product {
+    width: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .product {
+    width: 300px;
+  }
+  .h1-1 {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .product {
+    width: 300px;
+  }
+}

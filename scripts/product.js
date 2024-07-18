@@ -41,7 +41,7 @@ function fetchProducts() {
   let url = `https://dummyjson.com/products?limit=100`; // Fetch a large number of products initially
   fetch(url)
     .then((response) => response.json())
-    .then((data) => {
+    .then((data) => { 
       allProducts = data.products;
       displayProducts(allProducts.slice(0, limit));
       updatePageInfo(0, limit, allProducts.length);

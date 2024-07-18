@@ -43,18 +43,7 @@
                     </a>
                 </div>
             </div>
-            <!-- <div class="Addresse tabShow">
-                <h1>Addresse Info</h1>
-                <h2>Addresse Deatils</h2>
-                <input type="text" class="profileInput" id="address">
-                <h2>city</h2>
-                <input type="text" class="profileInput" id="city">
-                <h2>state</h2>
-                <input type="text" class="profileInput" id="state">
-                <h2>Postal Code</h2>
-                <input type="text" class="profileInput" id="postalCode">
-                <button class="btn" onclick="logOut();">Logout</button>
-            </div> -->
+           
 
         </div>
     </div>
@@ -106,12 +95,7 @@
 
                             document.getElementById("gender").value = data.gender || "";
                             document.getElementById("email").value = data.email || "";
-                            if (data.address) {
-                                document.getElementById("address").value = data.address.address || "";
-                                document.getElementById("city").value = data.address.city || "";
-                                document.getElementById("state").value = data.address.state || "";
-                                document.getElementById("postalCode").value = data.address.postalCode || "";
-                            }
+                            
                         }
                     });
             } else if (currentUser) {
@@ -121,10 +105,6 @@
                     document.getElementById("birthDate").value = user.age || "Not provided";
                     document.getElementById("gender").value = "Not provided";
                     document.getElementById("email").value = "Not provided";
-                    document.getElementById("address").value = "Not provided";
-                    document.getElementById("city").value = "Not provided";
-                    document.getElementById("state").value = "Not provided";
-                    document.getElementById("postalCode").value = "Not provided";
                 }
             } else {
                 window.location.href = "/index.html";
